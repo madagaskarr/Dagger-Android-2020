@@ -5,6 +5,9 @@ import android.app.Application;
 
 import com.example.dagger_android_2020.BaseApplication;
 import com.example.dagger_android_2020.Modules.ActivityBuildersModule;
+import com.example.dagger_android_2020.Modules.BaseApplicationModule;
+
+import javax.inject.Singleton;
 
 import dagger.BindsInstance;
 import dagger.Component;
@@ -28,8 +31,20 @@ import dagger.android.AndroidInjector;
 // TODO: 8 - Include ActivityBuildersModule in the component
 // MARK: After creating a new module we need to add it into the component class. So
 // the components are the classes where we include our modules and modules are classes
-// where we configure our dependencies.
-@Component(modules = {AndroidInjectionModule.class, ActivityBuildersModule.class})
+// where we configure our dependencies. Every activity that is being used by Dagger as
+// a client need to be extended by DaggerAppCompatActivity.
+
+// TODO: 14 - Include BaseApplicationModule in the component
+// MARK: BaseApplicationModule is the module where we are configuring all the application
+// level dependencies.
+
+// TODO: 15 - Add @Singleton annotation
+// MARK: Singleton annotation is just a label for grouping dependencies. Here we are saying
+// that BaseApplicationComponent is the owner of Singleton annotation and all the modules that
+// are part of this scope can provide method with the same annotation. And the logic of our
+// BaseApplicationComponent is that it will be alive during the entire application.
+@Singleton
+@Component(modules = {AndroidInjectionModule.class, ActivityBuildersModule.class, BaseApplicationModule.class})
 public interface BaseApplicationComponent extends AndroidInjector<BaseApplication> {
 
     // TODO: 5 - Override the Builder of the component
