@@ -20,6 +20,8 @@ public abstract class ActivityBuildersModule {
     // return the activity that we want to mark as our service client. In previous
     // Dagger versions this was harder and you need to do more steps but with the new
     // Dagger version you just need to use thi right annotation.
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector (
+            modules = {MainActivityViewModelModule.class}
+    )
     abstract MainActivity contributeMainActivity();
 }

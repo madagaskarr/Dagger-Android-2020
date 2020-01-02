@@ -1,12 +1,15 @@
 package com.example.dagger_android_2020;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.widget.ImageView;
 
 import com.bumptech.glide.RequestManager;
+import com.example.dagger_android_2020.ViewModelInjection.ViewModelProvidersFactory;
+import com.example.dagger_android_2020.ViewModels.MainActivityViewModel;
 
 import javax.inject.Inject;
 
@@ -19,6 +22,7 @@ import dagger.android.support.DaggerAppCompatActivity;
 public class MainActivity extends DaggerAppCompatActivity {
 
     private ImageView myImageView;
+    private MainActivityViewModel mainActivityViewModel;
 
     @Inject
     RequestManager glideInstance;
@@ -26,6 +30,8 @@ public class MainActivity extends DaggerAppCompatActivity {
     @Inject
     Drawable logoDrawable;
 
+    @Inject
+    ViewModelProvidersFactory viewModelProvidersFactory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,5 +40,6 @@ public class MainActivity extends DaggerAppCompatActivity {
 
         myImageView = findViewById(R.id.my_image_view);
         glideInstance.load(logoDrawable).into(myImageView);
+        mainActivityViewModel = ViewModelProviders.of(this, viewModelProvidersFactory).get(MainActivityViewModel.class);
     }
 }

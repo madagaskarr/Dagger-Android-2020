@@ -6,6 +6,7 @@ import android.app.Application;
 import com.example.dagger_android_2020.BaseApplication;
 import com.example.dagger_android_2020.Modules.ActivityBuildersModule;
 import com.example.dagger_android_2020.Modules.BaseApplicationModule;
+import com.example.dagger_android_2020.ViewModelInjection.ViewModelProvidersFactoryModule;
 
 import javax.inject.Singleton;
 
@@ -44,7 +45,10 @@ import dagger.android.AndroidInjector;
 // are part of this scope can provide method with the same annotation. And the logic of our
 // BaseApplicationComponent is that it will be alive during the entire application.
 @Singleton
-@Component(modules = {AndroidInjectionModule.class, ActivityBuildersModule.class, BaseApplicationModule.class})
+@Component(modules = {AndroidInjectionModule.class,
+                      ActivityBuildersModule.class,
+                      BaseApplicationModule.class,
+                      ViewModelProvidersFactoryModule.class})
 public interface BaseApplicationComponent extends AndroidInjector<BaseApplication> {
 
     // TODO: 5 - Override the Builder of the component
